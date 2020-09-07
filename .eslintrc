@@ -1,0 +1,40 @@
+{
+  "extends": ["prettier", "prettier/react"],
+  "plugins": ["react", "prettier"],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", "jsx"]
+      }
+    ],
+    "prettier/prettier": "error",
+    "max-len": ["error", 100],
+    "import/no-unresolved": "off",
+    "camelcase": "off",
+    "react/no-danger": "off",
+    "no-param-reassign": "off",
+    "import/no-extraneous-dependencies": "off",
+    "react/no-array-index-key": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "no-nested-ternary": "off",
+    "react/jsx-fragments": "off",
+    "import/extensions": "off",
+    "react/jsx-props-no-spreading": "off",
+    "jsx-a11y/alt-text": "off",
+    "no-control-regex": 0,
+    "semi": "off"
+  },
+  "env": {
+    "browser": true
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "./webpack.config.js"
+      }
+    }
+  },
+  "parser": "babel-eslint"
+}
