@@ -1,7 +1,8 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react'
+import {useParams} from 'react-router-dom'
 import _ from 'lodash'
-import Grid from './pages/room/grid'
-import './App.css'
+import Grid from './grid'
 
 const minWidth = 100
 const maxWidth = 150
@@ -27,7 +28,8 @@ const player1Value = 1
 const player2Value = 0
 const noPlayer = '-'
 
-function App() {
+const Room = () => {
+  const {id} = useParams()
   const numRows = 6
   const numCols = Math.floor(windowWidth / minWidth)
 
@@ -190,6 +192,7 @@ function App() {
 
   return (
     <>
+      <h1>{id}</h1>
       <div
         style={{
           display: 'grid',
@@ -237,7 +240,6 @@ function App() {
           </div>
         </div>
       </div>
-
       <div
         style={{
           display: 'grid',
@@ -269,4 +271,4 @@ function App() {
   )
 }
 
-export default App
+export default Room
