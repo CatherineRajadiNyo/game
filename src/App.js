@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
+import Grid from './grid'
 import './App.css'
 
 const minWidth = 100
@@ -117,7 +118,12 @@ function App() {
     const y = userCurrentPos[1] + operation[direction].y
 
     // if current player move to opponent current position, opponent lose
-    if (x === opponentCurrentPos[0] && y === opponentCurrentPos[1]) {
+    if (
+      player1RemainingMoves == 0 &&
+      player2RemainingMoves == 0 &&
+      x === opponentCurrentPos[0] &&
+      y === opponentCurrentPos[1]
+    ) {
       isPlayer1Turn
         ? setPlayer1Point(player1Point + 1)
         : setPlayer2Point(player2Point + 1)
@@ -231,6 +237,7 @@ function App() {
           </div>
         </div>
       </div>
+
       <div
         style={{
           display: 'grid',
@@ -252,43 +259,12 @@ function App() {
           restart
         </button>
       </div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${numCols}, ${width}px)`,
-          margin: '0 auto',
-          width: `${windowWidth}px`,
-        }}
-      >
-        {_.map(grid, (rows, i) => {
-          return _.map(rows, (cols, k) => {
-            let currentBgColor
-            switch (grid[i][k]) {
-              case 0:
-                currentBgColor = 'pink'
-                break
-              case 1:
-                currentBgColor = 'blue'
-                break
-              default:
-                currentBgColor = 'white'
-                break
-            }
-
-            return (
-              <div
-                key={`${i}-${k}`}
-                style={{
-                  width: width,
-                  height: width,
-                  backgroundColor: currentBgColor,
-                  border: '1px solid black',
-                }}
-              >{`${i}-${k}`}</div>
-            )
-          })
-        })}
-      </div>
+      <Grid
+        grid={grid}
+        cols={numCols}
+        width={width}
+        windowWidth={windowWidth}
+      />
     </>
   )
 }
