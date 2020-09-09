@@ -1,10 +1,9 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useCookies } from 'react-cookie'
 import { gameSettings, resetBoard } from '@helpers'
 import { useResetGrid } from '@hooks'
 
-const GameStats = ({ room }) => {
+const GameStats = ({ room, playerNumber }) => {
   const {
     move,
     round,
@@ -26,8 +25,6 @@ const GameStats = ({ room }) => {
 
   const { numOfRound, maxPlayerPerRoom } = gameSettings
 
-  const [cookies, setCookie] = useCookies(['user'])
-
   const { isClearing, resetGrid } = useResetGrid()
 
   const newBoard = resetBoard(numRows, numCols)
@@ -44,10 +41,6 @@ const GameStats = ({ room }) => {
       player2Point,
     })
   }
-
-  let playerNumber
-  if (player1Id == cookies.user) playerNumber = 1
-  if (player2Id == cookies.user) playerNumber = 2
 
   return (
     <>

@@ -5,7 +5,7 @@ import { operation, player, gameSettings, resetBoard } from '@helpers'
 
 const { innerWidth: userWindowWidth } = window
 
-const Grid = ({ room }) => {
+const Grid = ({ room, playerNumber }) => {
   const { isUpdating, setBoardSize } = useInitialBoardSize()
   const { isUpdatingBoard, updateBoard } = usePlayBoard()
   const { minGridWidth, maxGridWidth, maxPlayerPerRoom } = gameSettings
@@ -81,8 +81,13 @@ const Grid = ({ room }) => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       const { key } = event
-      if (operation[key] && !gameOver && partiesJoined == maxPlayerPerRoom)
-        movePlayerPosition(key)
+      if (operation[key] && !gameOver && partiesJoined == maxPlayerPerRoom) {
+        if (
+          (isPlayer1Turn && playerNumber == 1) ||
+          (!isPlayer1Turn && playerNumber == 2)
+        )
+          movePlayerPosition(key)
+      }
       return
     }
 
