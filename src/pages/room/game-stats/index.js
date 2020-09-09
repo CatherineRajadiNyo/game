@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { gameSettings, resetBoard } from '@helpers'
 import { useResetGrid } from '@hooks'
 
@@ -21,6 +21,8 @@ const GameStats = ({ room, playerNumber }) => {
     partiesJoined,
   } = room
 
+  const history = useHistory()
+
   const { roomId } = useParams()
 
   const { numOfRound, maxPlayerPerRoom } = gameSettings
@@ -40,6 +42,10 @@ const GameStats = ({ room, playerNumber }) => {
       player1Point,
       player2Point,
     })
+  }
+
+  const goBack = () => {
+    history.push('/')
   }
 
   return (
@@ -64,6 +70,9 @@ const GameStats = ({ room, playerNumber }) => {
           >
             Share this room id with your friend: <strong>{roomId}</strong>
           </div>
+          <button onClick={() => goBack()} className="bg-grey">
+            Leave Game
+          </button>
           <button
             onClick={() => reset()}
             style={{

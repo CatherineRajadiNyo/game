@@ -68,6 +68,10 @@ button{
   background-color: #ffffff;
 }
 
+.bg-grey{
+  background-color: #eeeeee;
+}
+
 .grid{
   border-top: 1px solid #eeeeee;
   border-left: 1px solid #eeeeee;
