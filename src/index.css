@@ -34,7 +34,7 @@ button{
 
 .box{
   border-radius: 5px;
-  background-color: #eee;
+  background-color: #eeeeee;
   padding: 5rem 2rem;
   width: 90%;
   max-width: 400px;
@@ -54,4 +54,33 @@ button{
   right: 1rem;
   font-size: .75rem;
   cursor: pointer;
+}
+
+.bg-player1{
+  background-color: yellow;
+}
+
+.bg-player2{
+  background-color: pink;
+}
+
+.bg-white{
+  background-color: #ffffff;
+}
+
+.grid{
+  border-top: 1px solid #eeeeee;
+  border-left: 1px solid #eeeeee;
+  display: grid;
+  margin: 0 auto;
+}
+
+.grid-item{
+  border-bottom: 1px solid #eeeeee;
+  border-right: 1px solid #eeeeee;
+  border: 1px solid #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { db } from '@services'
+import { gameSettings } from '@helpers'
 import { getUpdatedGameState } from './helpers'
 
 const usePlayBoard = () => {
@@ -22,6 +23,7 @@ const usePlayBoard = () => {
         player2RemainingMoves,
         grid,
         availableGrid,
+        round,
       } = room
 
       const {
@@ -71,6 +73,13 @@ const usePlayBoard = () => {
           gameOver: newGameOver,
           availableGrid: newAvailableGrid,
         })
+
+      if (newGameOver && round == gameSettings.numOfRound)
+        return alert(
+          `Player ${
+            newPlayer1Point > newPlayer2Point ? '1' : '2'
+          } win the round`
+        )
     } catch (err) {
       console.error(err)
     }

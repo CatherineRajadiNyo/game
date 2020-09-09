@@ -96,11 +96,10 @@ const Grid = ({ room }) => {
   return (
     <div
       style={{
-        display: 'grid',
         gridTemplateColumns: `repeat(${numCols}, ${width}px)`,
-        margin: '0 auto',
         width: `${windowWidth}px`,
       }}
+      className="grid"
     >
       {partiesJoined == maxPlayerPerRoom &&
         _.map(grid, (rows, i) => {
@@ -108,15 +107,22 @@ const Grid = ({ room }) => {
             let currentBgColor
             switch (grid[i][k]) {
               case player.player1Value:
-                currentBgColor = 'pink'
+                currentBgColor = 'bg-player1'
                 break
               case player.player2Value:
-                currentBgColor = 'blue'
+                currentBgColor = 'bg-player2'
                 break
               default:
-                currentBgColor = 'white'
+                currentBgColor = 'bg-white'
                 break
             }
+
+            let text
+            if (
+              (player1Position[0] == i && player1Position[1] == k) ||
+              (player2Position[0] == i && player2Position[1] == k)
+            )
+              text = 'here'
 
             return (
               <div
@@ -124,10 +130,11 @@ const Grid = ({ room }) => {
                 style={{
                   width: width,
                   height: width,
-                  backgroundColor: currentBgColor,
-                  border: '1px solid black',
                 }}
-              >{`${i}-${k}`}</div>
+                className={`grid-item ${currentBgColor}`}
+              >
+                <span>{text}</span>
+              </div>
             )
           })
         })}

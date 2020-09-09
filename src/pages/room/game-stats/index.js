@@ -1,6 +1,9 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 import { gameSettings, resetBoard } from '@helpers'
 import { useResetGrid } from '@hooks'
+
 const GameStats = ({ room }) => {
   const {
     move,
@@ -14,7 +17,16 @@ const GameStats = ({ room }) => {
     player2Point,
     player1RemainingMoves,
     player2RemainingMoves,
+    player1Id,
+    player2Id,
+    partiesJoined,
   } = room
+
+  const { roomId } = useParams()
+
+  const { numOfRound, maxPlayerPerRoom } = gameSettings
+
+  const [cookies, setCookie] = useCookies(['user'])
 
   const { isClearing, resetGrid } = useResetGrid()
 
@@ -33,6 +45,10 @@ const GameStats = ({ room }) => {
     })
   }
 
+  let playerNumber
+  if (player1Id == cookies.user) playerNumber = 1
+  if (player2Id == cookies.user) playerNumber = 2
+
   return (
     <>
       <div
@@ -44,12 +60,30 @@ const GameStats = ({ room }) => {
         }}
       >
         <div>
-          {`Round ${round}/${gameSettings.numOfRound}`}
-          <h3>{message}</h3>
+          <h3 className={`bg-player${playerNumber}`}>
+            You are player {playerNumber}
+          </h3>
+          <h4>{message}</h4>
+          <div
+            style={{
+              display: partiesJoined < maxPlayerPerRoom ? 'block' : 'none',
+            }}
+          >
+            Share this room id with your friend: <strong>{roomId}</strong>
+          </div>
+          <button
+            onClick={() => reset()}
+            style={{
+              display: !gameOver ? 'none' : 'block',
+            }}
+          >
+            {round === numOfRound ? 'start new set of game' : 'next round'}
+          </button>
         </div>
 
         <div>
-          set your starting position
+          <h3>{`Round ${round}/${numOfRound}`}</h3>
+          <div>Set your starting position</div>
           <div
             style={{
               display: 'grid',
@@ -63,7 +97,7 @@ const GameStats = ({ room }) => {
         </div>
 
         <div>
-          Points
+          <h3>Points</h3>
           <div
             style={{
               display: 'grid',
@@ -76,13 +110,6 @@ const GameStats = ({ room }) => {
           </div>
         </div>
       </div>
-
-      <button
-        onClick={() => reset()}
-        style={{ display: !gameOver ? 'none' : 'block' }}
-      >
-        {round === gameSettings.round ? 'start new set of game' : 'next round'}
-      </button>
     </>
   )
 }
