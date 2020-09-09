@@ -13,8 +13,6 @@ module.exports = () => {
     return prev;
   }, {});
 
-  console.log(envKeys)
-
   return {
     mode: 'development',
     entry: path.resolve(__dirname, 'src/index.js'),
@@ -33,12 +31,14 @@ module.exports = () => {
         {
           test: /\.css$/i,
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
+ 
         },
       ],
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, 'public/index.html')
+        template: path.resolve(__dirname, 'public/index.html'),
+        favicon: './public/favicon.png',
       }),
       new MiniCssExtractPlugin({
         filename: '[name].[hash].css',

@@ -1,0 +1,12 @@
+.box{
+  border-radius: 5px;
+  background-color: #eeeeee;
+  padding: 5rem 2rem;
+  width: 90%;
+  max-width: 400px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

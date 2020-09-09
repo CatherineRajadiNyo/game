@@ -1,0 +1,24 @@
+.grid{
+  border-top: 1px solid #eeeeee;
+  border-left: 1px solid #eeeeee;
+  display: grid;
+  margin: 0 auto;
+}
+
+.grid__item{
+  border-bottom: 1px solid #eeeeee;
+  border-right: 1px solid #eeeeee;
+  border: 1px solid #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.bg_player1{
+  background-color: yellow;
+}
+
+.bg_player2{
+  background-color: pink;
+}

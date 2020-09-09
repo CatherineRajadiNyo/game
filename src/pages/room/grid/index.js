@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import _ from 'lodash'
 import { useInitialBoardSize, usePlayBoard } from '@hooks'
 import { operation, player, gameSettings, resetBoard } from '@helpers'
+import './style.css'
 
 const { innerWidth: userWindowWidth } = window
 
@@ -113,11 +114,11 @@ const Grid = ({ room, playerNumber }) => {
             let userText
             switch (grid[i][k]) {
               case player.player1Value:
-                currentBgColor = 'bg-player1'
+                currentBgColor = 'bg_player1'
                 userText = 'player 1'
                 break
               case player.player2Value:
-                currentBgColor = 'bg-player2'
+                currentBgColor = 'bg_player2'
                 userText = 'player 2'
                 break
               default:
@@ -139,7 +140,7 @@ const Grid = ({ room, playerNumber }) => {
                   width: width,
                   height: width,
                 }}
-                className={`grid-item ${currentBgColor}`}
+                className={`grid__item ${currentBgColor}`}
               >
                 <span>{text}</span>
               </div>

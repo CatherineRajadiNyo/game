@@ -4,6 +4,7 @@ import { useCookies } from 'react-cookie'
 import Modal from 'react-modal'
 import uniqid from 'uniqid'
 import { useCreateRoom, useJoinRoom } from '@hooks'
+import './style.css'
 
 const customModalStyles = {
   content: {
