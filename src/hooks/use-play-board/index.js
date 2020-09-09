@@ -51,6 +51,12 @@ const usePlayBoard = () => {
         availableGrid,
       })
 
+      let newWinnerMessage = ''
+      if (newGameOver && round == gameSettings.numOfRound)
+        newWinnerMessage = `Player ${
+          newPlayer1Point > newPlayer2Point ? '1' : '2'
+        } win the round`
+
       await db
         .collection('rooms')
         .doc(roomId)
@@ -69,17 +75,10 @@ const usePlayBoard = () => {
           player2Point: newPlayer2Point,
           isPlayer1Turn: !isPlayer1Turn,
           grid: newGrid,
-          message: newMessage,
+          message: _.isEmpty(newWinnerMessage) ? newMessage : newWinnerMessage,
           gameOver: newGameOver,
           availableGrid: newAvailableGrid,
         })
-
-      if (newGameOver && round == gameSettings.numOfRound)
-        return alert(
-          `Player ${
-            newPlayer1Point > newPlayer2Point ? '1' : '2'
-          } win the round`
-        )
     } catch (err) {
       console.error(err)
     }
