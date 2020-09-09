@@ -30,6 +30,7 @@ const useJoinRoom = () => {
           .update({
             player2Id: user,
             partiesJoined: data.partiesJoined + 1,
+            message: data.isPlayer1Turn ? "Player 1's Turn" : "Player 2's Turn",
           })
         return true
       } else {
