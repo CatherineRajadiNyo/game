@@ -3,11 +3,12 @@ import _ from 'lodash'
 import { useInitialBoardSize, usePlayBoard } from '@hooks'
 import { operation, player, gameSettings, resetBoard } from '@helpers'
 
-const { innerWidth: windowWidth } = window
+const { innerWidth: userWindowWidth } = window
 
 const Grid = ({ room }) => {
   const { isUpdating, setBoardSize } = useInitialBoardSize()
   const { isUpdatingBoard, updateBoard } = usePlayBoard()
+  const { minGridWidth, maxGridWidth, maxPlayerPerRoom } = gameSettings
 
   const {
     grid,
@@ -24,23 +25,31 @@ const Grid = ({ room }) => {
     gameOver,
     noPlayer,
     move,
+    partiesJoined,
+    windowWidth,
   } = room
 
   useEffect(() => {
     if (_.isEmpty(grid)) {
-      const minWidth = gameSettings.minGridWidth
-      const maxWidth = gameSettings.minGridWidth
-      const newNumCols = Math.floor(windowWidth / minWidth)
+      let newWindowWidth = windowWidth
+      if (windowWidth === 0) newWindowWidth = userWindowWidth
+      if (windowWidth > 0 && userWindowWidth < windowWidth)
+        newWindowWidth = userWindowWidth
 
-      let gridWidth = windowWidth / newNumCols
-      if (gridWidth > maxWidth) gridWidth = maxWidth
-      if (gridWidth < minWidth) gridWidth = minWidth
+      const newNumCols = Math.floor(newWindowWidth / minGridWidth)
 
-      const newBoard = resetBoard(numRows, newNumCols)
+      let gridWidth = newWindowWidth / newNumCols
+      if (gridWidth > maxGridWidth) gridWidth = maxGridWidth
+      if (gridWidth < minGridWidth) gridWidth = minGridWidth
+
+      const newBoard =
+        partiesJoined === maxPlayerPerRoom
+          ? resetBoard(numRows, newNumCols)
+          : {}
 
       setBoardSize({
         gridWidth,
-        windowWidth,
+        windowWidth: newWindowWidth,
         numRows,
         newBoard,
         newNumCols,
@@ -72,7 +81,8 @@ const Grid = ({ room }) => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       const { key } = event
-      if (operation[key] && !gameOver) movePlayerPosition(key)
+      if (operation[key] && !gameOver && partiesJoined == maxPlayerPerRoom)
+        movePlayerPosition(key)
       return
     }
 
@@ -92,34 +102,35 @@ const Grid = ({ room }) => {
         width: `${windowWidth}px`,
       }}
     >
-      {_.map(grid, (rows, i) => {
-        return _.map(rows, (numCols, k) => {
-          let currentBgColor
-          switch (grid[i][k]) {
-            case player.player1Value:
-              currentBgColor = 'pink'
-              break
-            case player.player2Value:
-              currentBgColor = 'blue'
-              break
-            default:
-              currentBgColor = 'white'
-              break
-          }
+      {partiesJoined == maxPlayerPerRoom &&
+        _.map(grid, (rows, i) => {
+          return _.map(rows, (numCols, k) => {
+            let currentBgColor
+            switch (grid[i][k]) {
+              case player.player1Value:
+                currentBgColor = 'pink'
+                break
+              case player.player2Value:
+                currentBgColor = 'blue'
+                break
+              default:
+                currentBgColor = 'white'
+                break
+            }
 
-          return (
-            <div
-              key={`${i}-${k}`}
-              style={{
-                width: width,
-                height: width,
-                backgroundColor: currentBgColor,
-                border: '1px solid black',
-              }}
-            >{`${i}-${k}`}</div>
-          )
-        })
-      })}
+            return (
+              <div
+                key={`${i}-${k}`}
+                style={{
+                  width: width,
+                  height: width,
+                  backgroundColor: currentBgColor,
+                  border: '1px solid black',
+                }}
+              >{`${i}-${k}`}</div>
+            )
+          })
+        })}
     </div>
   )
 }

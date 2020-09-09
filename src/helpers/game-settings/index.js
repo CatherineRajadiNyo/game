@@ -4,6 +4,7 @@ const gameSettings = {
   numOfMoves: 5,
   minGridWidth: 100,
   maxGridWidth: 150,
+  maxPlayerPerRoom: 2,
 }
 
 export default gameSettings
