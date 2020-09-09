@@ -6,28 +6,25 @@ const useInitialBoardSize = () => {
   const { roomId } = useParams()
   const [isUpdating, setIsUpdating] = useState(false)
 
-  async function setBoardSize(
-    width,
+  async function setBoardSize({
+    gridWidth,
     windowWidth,
-    grid,
+    newBoard,
     numRows,
-    numCols,
-    move
-  ) {
+    newNumCols,
+    move,
+  }) {
     try {
       await db
         .collection('rooms')
         .doc(roomId)
         .update({
           windowWidth: windowWidth,
-          width: width,
-          grid: grid,
-          numCols: numCols,
-          isPlayer1Turn: true,
+          width: gridWidth,
+          grid: newBoard,
+          numCols: newNumCols,
           player1Position: [0, 0],
-          player2Position: [numRows - 1, numCols - 1],
-          player1RemainingMoves: move,
-          player2RemainingMoves: move,
+          player2Position: [numRows - 1, newNumCols - 1],
         })
     } catch (err) {
       console.error(err)

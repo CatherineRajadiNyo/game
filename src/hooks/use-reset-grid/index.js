@@ -1,26 +1,42 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { db } from '@services'
+import { gameSettings } from '@helpers'
 
 const useResetGrid = () => {
   const { roomId } = useParams()
   const [isClearing, setIsClearing] = useState(false)
 
-  async function resetGrid(move, round, numRows, numCols, startingTurn) {
+  async function resetGrid({
+    move,
+    round,
+    numRows,
+    numCols,
+    startingTurn,
+    player1Point,
+    player2Point,
+    grid,
+  }) {
     try {
+      const newMove =
+        round === gameSettings.numOfRound ? gameSettings.numOfMoves : move - 1
       await db
         .collection('rooms')
         .doc(roomId)
         .update({
-          grid: [],
-          move: move - 1,
-          round: round - 1,
+          grid: grid,
+          move: newMove,
+          player1RemainingMoves: newMove,
+          player2RemainingMoves: newMove,
+          round: round === gameSettings.numOfRound ? 1 : round + 1,
           gameOver: false,
-          gameStart: true,
+          player1Point: round === gameSettings.numOfRound ? 0 : player1Point,
+          player2Point: round === gameSettings.numOfRound ? 0 : player2Point,
           player1Position: [0, 0],
-          player2Position: [numCols - 1, numRows - 1],
+          player2Position: [numRows - 1, numCols - 1],
           isPlayer1Turn: startingTurn === 1 ? false : true,
           startingTurn: startingTurn === 1 ? 2 : 1,
+          message: startingTurn === 1 ? "Player 2's Turn" : "Player 1's Turn",
         })
     } catch (err) {
       console.error(err)

@@ -45,6 +45,10 @@ const checkGameBoard = ({
   if (neighbor === 0) {
     return isPlayer1Turn ? 'PLAYER2WIN' : 'PLAYER1WIN'
   }
+  // console.log(_.includes(newGrid, player.noPlayer))
+  // if (!_.includes(newGrid, player.noPlayer)) {
+  //   return 'DRAW'
+  // }
 
   return 'NONE'
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { gameSettings } from '@helpers'
+import { gameSettings, resetBoard } from '@helpers'
 import { useResetGrid } from '@hooks'
 const GameStats = ({ room }) => {
   const {
@@ -18,8 +18,19 @@ const GameStats = ({ room }) => {
 
   const { isClearing, resetGrid } = useResetGrid()
 
+  const newBoard = resetBoard(numRows, numCols)
+
   const reset = () => {
-    resetGrid(move, round, numRows, numCols, startingTurn)
+    resetGrid({
+      grid: newBoard,
+      move,
+      round,
+      numRows,
+      numCols,
+      startingTurn,
+      player1Point,
+      player2Point,
+    })
   }
 
   return (
@@ -46,14 +57,8 @@ const GameStats = ({ room }) => {
               gridTemplateColumns: `repeat(2, 1fr)`,
             }}
           >
-            <div>
-              {`Player 1 move count: ${player1RemainingMoves}/
-              ${gameSettings.numOfMoves}`}
-            </div>
-            <div>
-              {`Player 2 move count: ${player2RemainingMoves}/
-              ${gameSettings.numOfMoves}`}
-            </div>
+            <div>{`Player 1 move count: ${player1RemainingMoves}`}</div>
+            <div>{`Player 2 move count: ${player2RemainingMoves}`}</div>
           </div>
         </div>
 
@@ -76,7 +81,7 @@ const GameStats = ({ room }) => {
         onClick={() => reset()}
         style={{ display: !gameOver ? 'none' : 'block' }}
       >
-        play again
+        {round === gameSettings.round ? 'start new set of game' : 'next round'}
       </button>
     </>
   )
