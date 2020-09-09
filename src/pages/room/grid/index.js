@@ -110,24 +110,27 @@ const Grid = ({ room, playerNumber }) => {
         _.map(grid, (rows, i) => {
           return _.map(rows, (numCols, k) => {
             let currentBgColor
+            let userText
             switch (grid[i][k]) {
               case player.player1Value:
                 currentBgColor = 'bg-player1'
+                userText = 'player 1'
                 break
               case player.player2Value:
                 currentBgColor = 'bg-player2'
+                userText = 'player 2'
                 break
               default:
                 currentBgColor = 'bg-white'
                 break
             }
 
-            let text
+            let text = ''
             if (
               (player1Position[0] == i && player1Position[1] == k) ||
               (player2Position[0] == i && player2Position[1] == k)
             )
-              text = 'here'
+              text = userText
 
             return (
               <div
