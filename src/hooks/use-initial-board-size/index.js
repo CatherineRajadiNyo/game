@@ -14,6 +14,7 @@ const useInitialBoardSize = () => {
     newNumCols,
     move,
   }) {
+    const totalGrid = numRows * newNumCols - 2
     try {
       await db
         .collection('rooms')
@@ -22,6 +23,8 @@ const useInitialBoardSize = () => {
           windowWidth: windowWidth,
           width: gridWidth,
           grid: newBoard,
+          totalGrid: totalGrid,
+          availableGrid: totalGrid,
           numCols: newNumCols,
           player1Position: [0, 0],
           player2Position: [numRows - 1, newNumCols - 1],

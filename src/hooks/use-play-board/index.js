@@ -21,7 +21,9 @@ const usePlayBoard = () => {
         player1RemainingMoves,
         player2RemainingMoves,
         grid,
+        availableGrid,
       } = room
+
       const {
         newPlayer1Position,
         newPlayer2Position,
@@ -30,6 +32,7 @@ const usePlayBoard = () => {
         newGameOver,
         newPlayer1Point,
         newPlayer2Point,
+        newAvailableGrid,
       } = getUpdatedGameState({
         grid,
         x,
@@ -43,7 +46,9 @@ const usePlayBoard = () => {
         player2Point,
         numRows,
         numCols,
+        availableGrid,
       })
+
       await db
         .collection('rooms')
         .doc(roomId)
@@ -64,6 +69,7 @@ const usePlayBoard = () => {
           grid: newGrid,
           message: newMessage,
           gameOver: newGameOver,
+          availableGrid: newAvailableGrid,
         })
     } catch (err) {
       console.error(err)

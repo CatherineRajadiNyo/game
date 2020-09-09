@@ -12,6 +12,7 @@ const checkGameBoard = ({
   player2RemainingMoves,
   x,
   y,
+  newAvailableGrid,
 }) => {
   if (player1RemainingMoves > 0 && player2RemainingMoves > 0) return 'NONE'
 
@@ -46,12 +47,7 @@ const checkGameBoard = ({
     return isPlayer1Turn ? 'PLAYER2WIN' : 'PLAYER1WIN'
   }
 
-  let allGridOccupied = false
-  _.map(newGrid, (o) => {
-    allGridOccupied = !_.includes(o, player.noPlayer)
-  })
-
-  if (allGridOccupied) return 'DRAW'
+  if (newAvailableGrid == 1) return 'DRAW'
 
   return 'NONE'
 }

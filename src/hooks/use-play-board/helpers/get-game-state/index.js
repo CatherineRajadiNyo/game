@@ -15,6 +15,7 @@ const getUpdatedGameState = ({
   player2Point,
   numRows,
   numCols,
+  availableGrid,
 }) => {
   const newGrid = grid
   newGrid[x][y] = isPlayer1Turn ? player.player1Value : player.player2Value
@@ -34,6 +35,8 @@ const getUpdatedGameState = ({
     newPlayer2Position = [x, y]
   }
 
+  let newAvailableGrid = availableGrid
+
   // get game outcome
   const outcome = checkGameBoard({
     newGrid,
@@ -46,6 +49,7 @@ const getUpdatedGameState = ({
     player2RemainingMoves,
     x,
     y,
+    newAvailableGrid,
   })
 
   let newMessage = ''
@@ -74,6 +78,9 @@ const getUpdatedGameState = ({
     case 'NONE':
     default:
       newMessage = `Player ${isPlayer1Turn ? '2' : '1'}'s Turn`
+      if (player1RemainingMoves === 0 && player2RemainingMoves === 0)
+        newAvailableGrid = availableGrid - 1
+      break
   }
 
   return {
@@ -84,6 +91,7 @@ const getUpdatedGameState = ({
     newGameOver,
     newPlayer1Point,
     newPlayer2Point,
+    newAvailableGrid,
   }
 }
 

@@ -20,11 +20,14 @@ const useResetGrid = () => {
     try {
       const newMove =
         round === gameSettings.numOfRound ? gameSettings.numOfMoves : move - 1
+      const totalGrid = numRows * numCols - 2
       await db
         .collection('rooms')
         .doc(roomId)
         .update({
           grid: grid,
+          totalGrid: totalGrid,
+          availableGrid: totalGrid,
           move: newMove,
           player1RemainingMoves: newMove,
           player2RemainingMoves: newMove,
