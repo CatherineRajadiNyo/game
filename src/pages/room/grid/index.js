@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import _ from 'lodash'
-import { useInitialBoardSize, usePlayBoard, useRoom } from '@hooks'
+import { useInitialBoardSize, usePlayBoard } from '@hooks'
 import { operation, player, gameSettings, resetBoard } from '@helpers'
 
 const { innerWidth: windowWidth } = window

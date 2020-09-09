@@ -1,8 +1,9 @@
 import React from 'react'
 import _ from 'lodash'
+import { useRoom } from '@hooks'
+
 import Grid from './grid'
 import GameStats from './game-stats'
-import { useRoom } from '@hooks'
 
 const Room = () => {
   const { isFetching, room } = useRoom()

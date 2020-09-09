@@ -66,11 +66,11 @@ const getUpdatedGameState = ({
       newPlayer2Point = player2Point + 1
       break
     }
-    // case 'DRAW': {
-    //   newMessage = 'DRAW!'
-    //   newGameOver = true
-    //   break
-    // }
+    case 'DRAW': {
+      newMessage = 'DRAW!'
+      newGameOver = true
+      break
+    }
     case 'NONE':
     default:
       newMessage = `Player ${isPlayer1Turn ? '2' : '1'}'s Turn`
