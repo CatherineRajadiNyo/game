@@ -26,14 +26,10 @@ const Room = () => {
       if (player1Id == cookies.user) setPlayerNumber(1)
       if (player2Id == cookies.user) setPlayerNumber(2)
 
-      const fetchData = async () => {
-        if (_.isEmpty(player2Id) && player1Id != cookies.user) {
-          const result = joinRoom(roomId)
-          if (result) setPlayerNumber(2)
-        }
+      if (_.isEmpty(player2Id) && player1Id != cookies.user) {
+        const result = joinRoom(roomId)
+        if (result) setPlayerNumber(2)
       }
-
-      fetchData()
     }
   }, [isFetching])
 
