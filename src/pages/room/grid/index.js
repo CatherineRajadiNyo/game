@@ -102,8 +102,8 @@ const Grid = ({ room, playerNumber }) => {
   return (
     <div
       style={{
-        gridTemplateColumns: `repeat(${numCols}, ${width}px)`,
-        width: `${windowWidth}px`,
+        gridTemplateColumns: `repeat(${numCols}, minmax(${minGridWidth}px, ${maxGridWidth}px))`,
+        maxWidth: `${windowWidth}px`,
       }}
       className="grid"
     >

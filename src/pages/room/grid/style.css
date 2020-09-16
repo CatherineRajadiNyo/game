@@ -3,6 +3,7 @@
   border-left: 1px solid #eeeeee;
   display: grid;
   margin: 0 auto;
+  width: 100%;
 }
 
 .grid__item{
