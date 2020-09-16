@@ -26,7 +26,7 @@ const Home = () => {
   const history = useHistory()
   const [cookies, setCookie] = useCookies(['user'])
   const { isCreatingRoom, createRoom } = useCreateRoom()
-  const { isJoiningRoom, hasSuccessfullyJoin, joinRoom } = useJoinRoom()
+  const { isJoiningRoom, joinRoom } = useJoinRoom()
 
   const [joiningRoomId, setJoiningRoomId] = useState('')
   const [modalIsOpen, setIsOpen] = useState(false)

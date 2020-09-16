@@ -7,7 +7,6 @@ const useJoinRoom = () => {
   const [cookies, setCookie] = useCookies(['user'])
   const user = cookies.user
   const [isJoiningRoom, setIsJoiningRoom] = useState(false)
-  const [hasSuccessfullyJoin, setHasSuccessfullyJoin] = useState(false)
 
   async function joinRoom(roomId) {
     if (!user) return undefined
@@ -43,7 +42,7 @@ const useJoinRoom = () => {
     }
   }
 
-  return { isJoiningRoom, hasSuccessfullyJoin, joinRoom }
+  return { isJoiningRoom, joinRoom }
 }
 
 export default useJoinRoom

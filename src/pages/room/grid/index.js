@@ -57,7 +57,7 @@ const Grid = ({ room, playerNumber }) => {
         move,
       })
     }
-  }, [])
+  }, [partiesJoined])
 
   async function movePlayerPosition(direction) {
     const userPos = isPlayer1Turn ? player1Position : player2Position
